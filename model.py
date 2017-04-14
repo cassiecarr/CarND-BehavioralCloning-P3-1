@@ -10,7 +10,7 @@ with open('data/driving_log.csv') as csvfile:
 
 images = []
 measurements = []
-correction = 0.2
+correction = 0.3
 for line in lines:
 	for i in range (3):
 		source_path = line[i]
@@ -19,12 +19,15 @@ for line in lines:
 		image = cv2.imread(current_path)
 		images.append(image)
 		measurement = float(line[3])
+		print(i)
+		print(measurement)
 		# Left image
 		if i == 1:
-			measurement = measurement + 0.65
+			measurement = measurement + correction
 		# Right image
 		if i == 2:
-			measurement = measurement - 0.5
+			measurement = measurement - correction
+		print(measurement)
 		measurements.append(measurement)
 		augmented_image = cv2.flip(image,1)
 		images.append(augmented_image)
