@@ -23,7 +23,7 @@ X_train = np.array(images)
 y_train = np.array(measurements)
 
 from keras.models import Sequential
-from karas.layers import Flatten, Dense
+from keras.layers import Flatten, Dense
 
 model = Sequential()
 model.add(Flatten(input_shape = (160,320,3)))
