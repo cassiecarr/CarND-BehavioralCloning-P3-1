@@ -18,6 +18,12 @@ for line in lines:
 	images.append(image)
 	measurement = float(line[3])
 	measurements.append(measurement)
+	augmented_image = cv2.flip(image,1)
+	images.append(augmented_image)
+	augmented_measurement = measurement*-1.0
+	measurements.append(augmented_measurement)
+
+
 
 X_train = np.array(images)
 y_train = np.array(measurements)
