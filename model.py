@@ -30,7 +30,7 @@ def generator(samples, batch_size=32):
 					current_path = 'data/IMG/' + filename
 					image = cv2.imread(current_path)
 					images.append(image)
-					# measurement = float(sample[3])
+					measurement = float(sample[3])
 					# # Left image
 					# if i == 1 and measurement > 0.2:
 					# 	measurement = measurement + correction
