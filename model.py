@@ -62,8 +62,8 @@ model.add(Dense(50))
 model.add(Dense(10))
 model.add(Dense(1))
 
-model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'], verbose=1)
-history_object = model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=2)
+model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
+history_object = model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=2, verbose=1)
 
 ### print the keys contained in the history object
 print(history_object.history.keys())
