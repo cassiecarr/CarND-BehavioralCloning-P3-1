@@ -23,6 +23,7 @@ X_train = np.array(images)
 y_train = np.array(measurements)
 
 from keras.models import Sequential
+from keras.layers import Lambda
 from keras.layers import Flatten, Dense
 from keras.layers.convolutional import Convolution2D
 from keras.layers.pooling import MaxPooling2D
