@@ -46,6 +46,8 @@ from keras.layers import Flatten, Dense
 from keras.layers.convolutional import Convolution2D
 from keras.layers.pooling import MaxPooling2D
 from keras.models import Model
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
 model = Sequential()
