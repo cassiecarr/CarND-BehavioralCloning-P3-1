@@ -19,10 +19,12 @@ for line in lines:
 		image = cv2.imread(current_path)
 		images.append(image)
 		measurement = float(line[3])
+		# Left image
 		if i == 1:
-			measurement = measurement + correction
-		if i == 2:
 			measurement = measurement - correction
+		# Right image
+		if i == 2:
+			measurement = measurement + correction
 		measurements.append(measurement)
 		augmented_image = cv2.flip(image,1)
 		images.append(augmented_image)
