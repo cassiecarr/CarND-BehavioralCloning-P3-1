@@ -19,16 +19,16 @@ for line in lines:
 		image = cv2.imread(current_path)
 		images.append(image)
 		measurement = float(line[3])
-		print(i)
-		print(filename)
-		print(measurement)
+		# print(i)
+		# print(filename)
+		# print(measurement)
 		# Left image
-		if i == 1:
+		if i == 1 and measurement > 0.1:
 			measurement = measurement + correction
 		# Right image
-		if i == 2:
+		if i == 2 and measurement > 0.1:
 			measurement = measurement - correction
-		print(measurement)
+		# print(measurement)
 		measurements.append(measurement)
 		augmented_image = cv2.flip(image,1)
 		images.append(augmented_image)
