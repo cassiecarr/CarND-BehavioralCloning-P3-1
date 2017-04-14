@@ -16,21 +16,21 @@ import sklearn
 
 def generator(samples, batch_size=32):
 	num_samples = len(samples)
-    while 1: 
-        shuffle(samples)
-        for offset in range(0, num_samples, batch_size):
-            batch_samples = samples[offset:offset+batch_size]
+	while 1:
+		sklearn.utils.shuffle(samples)
+		for offset in range(0, num_samples, batch_size):
+			batch_samples = samples[offset:offset+batch_size]
 			images = []
 			measurements = []
 			correction = 0.2
-			for line in lines:
+			for sample in samples:
 				for i in range (3):
-					source_path = line[i]
+					source_path = sample[i]
 					filename = source_path.split('/')[-1]
 					current_path = 'data/IMG/' + filename
 					image = cv2.imread(current_path)
 					images.append(image)
-					measurement = float(line[3])
+					measurement = float(sample[3])
 					# Left image
 					if i == 1 and measurement > 0.2:
 						measurement = measurement + correction
@@ -74,9 +74,9 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
-history_object = model.fit_generator(train_generator, samples_per_epoch= /
-            		len(train_samples)*6, validation_data=validation_generator, /
-            		nb_val_samples=len(validation_samples)*6, nb_epoch=3, verbose=1)
+history_object = model.fit_generator(train_generator, 
+	samples_per_epoch=len(train_samples)*6, validation_data=validation_generator,
+	nb_val_samples=len(validation_samples)*6, nb_epoch=3, verbose=1)
 model.save('model.h5')
 import gc; gc.collect()
 
