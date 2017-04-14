@@ -21,7 +21,7 @@ for line in lines:
 		measurement = float(line[3])
 		# Left image
 		if i == 1:
-			measurement = measurement + 0.5
+			measurement = measurement + 0.8
 		# Right image
 		if i == 2:
 			measurement = measurement - correction
