@@ -10,7 +10,7 @@ with open('data/driving_log.csv') as csvfile:
 
 images = []
 measurements = []
-correction = 0.1
+correction = 0.2
 for line in lines:
 	for i in range (3):
 		source_path = line[i]
