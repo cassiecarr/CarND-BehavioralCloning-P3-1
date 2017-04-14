@@ -20,6 +20,7 @@ for line in lines:
 		images.append(image)
 		measurement = float(line[3])
 		print(i)
+		print(filename)
 		print(measurement)
 		# Left image
 		if i == 1:
