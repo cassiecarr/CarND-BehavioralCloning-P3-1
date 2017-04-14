@@ -24,7 +24,7 @@ for line in lines:
 			measurement = measurement + 0.65
 		# Right image
 		if i == 2:
-			measurement = measurement - 0.1
+			measurement = measurement - 0.5
 		measurements.append(measurement)
 		augmented_image = cv2.flip(image,1)
 		images.append(augmented_image)
