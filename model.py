@@ -56,8 +56,8 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
-train_generator = generator(train_samples, batch_size=32)
-validation_generator = generator(validation_samples, batch_size=32)
+train_generator = generator(train_samples)
+validation_generator = generator(validation_samples)
 
 model = Sequential()
 model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape = (160,320,3)))
@@ -75,7 +75,7 @@ model.add(Dense(1))
 
 model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
 history_object = model.fit_generator(train_generator, 
-	samples_per_epoch=len(train_samples), validation_data=validation_generator,
+	samples_per_epoch=len(train_samples), validation_data=validation_generator, 
 	nb_val_samples=len(validation_samples), nb_epoch=3, verbose=1)
 model.save('model.h5')
 import gc; gc.collect()
