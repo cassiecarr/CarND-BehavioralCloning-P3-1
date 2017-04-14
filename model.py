@@ -12,7 +12,7 @@ images = []
 measurements = []
 correction = 0.2
 for line in lines:
-	for i in range (2):
+	for i in range (3):
 		source_path = line[i]
 		filename = source_path.split('/')[-1]
 		current_path = 'data/IMG/' + filename
@@ -21,10 +21,10 @@ for line in lines:
 		measurement = float(line[3])
 		# Left image
 		if i == 1:
-			measurement = measurement + 0.8
+			measurement = measurement + 0.65
 		# Right image
 		if i == 2:
-			measurement = measurement - correction
+			measurement = measurement - 0.3
 		measurements.append(measurement)
 		augmented_image = cv2.flip(image,1)
 		images.append(augmented_image)
