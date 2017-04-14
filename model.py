@@ -10,7 +10,7 @@ with open('data/driving_log.csv') as csvfile:
 
 images = []
 measurements = []
-correction = 0.1
+correction = 0.05
 for line in lines:
 	for i in range (0,2):
 		source_path = line[i]
@@ -50,7 +50,7 @@ model.add(Flatten())
 model.add(Dense(1))
 
 model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
-model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=2)
+model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=5)
 
 model.save('model.h5')
 
