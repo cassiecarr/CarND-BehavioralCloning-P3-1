@@ -23,10 +23,10 @@ for line in lines:
 		# print(filename)
 		# print(measurement)
 		# Left image
-		if i == 1 and measurement > 0.1:
+		if i == 1 and measurement > 0.2:
 			measurement = measurement + correction
 		# Right image
-		if i == 2 and measurement > 0.1:
+		if i == 2 and measurement > 0.2:
 			measurement = measurement - correction
 		# print(measurement)
 		measurements.append(measurement)
