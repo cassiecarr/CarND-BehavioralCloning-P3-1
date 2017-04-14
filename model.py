@@ -10,9 +10,9 @@ with open('data/driving_log.csv') as csvfile:
 
 images = []
 measurements = []
-correction = 0.05
+correction = 0.1
 for line in lines:
-	for i in range (0,2):
+	for i in range (3):
 		source_path = line[i]
 		filename = source_path.split('/')[-1]
 		current_path = 'data/IMG/' + filename
