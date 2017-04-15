@@ -12,6 +12,8 @@ with open('data/driving_log.csv') as csvfile:
 from sklearn.model_selection import train_test_split
 train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
+print(len(train_samples))
+
 import sklearn
 
 def generator(samples, batch_size=32):
@@ -23,27 +25,29 @@ def generator(samples, batch_size=32):
 			images = []
 			measurements = []
 			correction = 0.2
-			for sample in samples:
-				for i in range (1):
-					source_path = sample[i]
-					filename = source_path.split('/')[-1]
-					current_path = 'data/IMG/' + filename
-					image = cv2.imread(current_path)
-					images.append(image)
-					measurement = float(sample[3])
-					# # Left image
-					# if i == 1 and measurement > 0.2:
-					# 	measurement = measurement + correction
-					# # Right image
-					# if i == 2 and measurement > 0.2:
-					# 	measurement = measurement - correction
-					measurements.append(measurement)
-					# augmented_image = cv2.flip(image,1)
-					# images.append(augmented_image)
-					# augmented_measurement = measurement*-1.0
-					# measurements.append(augmented_measurement)
+			# for batch_sample in batch_samples:
+			# 	for i in range (1):
+			# 		source_path = batch_sample[i]
+			# 		filename = source_path.split('/')[-1]
+			# 		current_path = 'data/IMG/' + filename
+			# 		image = cv2.imread(current_path)
+			# 		images.append(image)
+			# 		measurement = float(batch_sample[3])
+			# 		# # Left image
+			# 		# if i == 1 and measurement > 0.2:
+			# 		# 	measurement = measurement + correction
+			# 		# # Right image
+			# 		# if i == 2 and measurement > 0.2:
+			# 		# 	measurement = measurement - correction
+			# 		measurements.append(measurement)
+			# 		print(measurement)
+			# 		# augmented_image = cv2.flip(image,1)
+			# 		# images.append(augmented_image)
+			# 		# augmented_measurement = measurement*-1.0
+			# 		# measurements.append(augmented_measurement)
 			X_train = np.array(images)
 			y_train = np.array(measurements)
+			print(y_train)
 			yield sklearn.utils.shuffle(X_train, y_train)
 
 from keras.models import Sequential
@@ -56,8 +60,8 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
-train_generator = generator(train_samples)
-validation_generator = generator(validation_samples)
+train_generator = generator(train_samples, batch_size=32)
+validation_generator = generator(validation_samples, batch_size=32)
 
 model = Sequential()
 model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape = (160,320,3)))
@@ -74,9 +78,7 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
-history_object = model.fit_generator(train_generator, 
-	samples_per_epoch=len(train_samples), validation_data=validation_generator, 
-	nb_val_samples=len(validation_samples), nb_epoch=3, verbose=1)
+# history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples), validation_data=validation_generator, nb_val_samples=len(validation_samples), nb_epoch=3, verbose=1)
 model.save('model.h5')
 import gc; gc.collect()
 
