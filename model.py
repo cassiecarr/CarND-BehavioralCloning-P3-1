@@ -24,7 +24,7 @@ def generator(samples, batch_size=32):
 			batch_samples = samples[offset:offset+batch_size]
 			images = []
 			measurements = []
-			correction = 0.15
+			correction = 0.2
 			for batch_sample in batch_samples:
 				for i in range (3):
 					source_path = batch_sample[i]
@@ -34,10 +34,10 @@ def generator(samples, batch_size=32):
 					images.append(image)
 					measurement = float(batch_sample[3])
 					# Left image
-					if i == 1 and measurement > 0.1:
+					if i == 1 and measurement > 0.2:
 						measurement = measurement + correction
 					# Right image
-					if i == 2 and measurement > 0.1:
+					if i == 2 and measurement > 0.2:
 						measurement = measurement - correction
 					measurements.append(measurement)
 					augmented_image = cv2.flip(image,1)
