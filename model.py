@@ -26,7 +26,7 @@ def generator(samples, batch_size=32):
 			measurements = []
 			correction = 0.2
 			for batch_sample in batch_samples:
-				for i in range (1):
+				for i in range (3):
 					source_path = batch_sample[i]
 					filename = source_path.split('/')[-1]
 					current_path = 'data/IMG/' + filename
@@ -77,8 +77,8 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
-history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples)*2, \
-	validation_data=validation_generator, nb_val_samples=len(validation_samples)*2, nb_epoch=2, \
+history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples)*6, \
+	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=2, \
 	verbose=1)
 model.save('model.h5')
 import gc; gc.collect()
