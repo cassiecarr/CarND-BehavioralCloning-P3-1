@@ -25,26 +25,26 @@ def generator(samples, batch_size=32):
 			images = []
 			measurements = []
 			correction = 0.2
-			# for batch_sample in batch_samples:
-			# 	for i in range (1):
-			# 		source_path = batch_sample[i]
-			# 		filename = source_path.split('/')[-1]
-			# 		current_path = 'data/IMG/' + filename
-			# 		image = cv2.imread(current_path)
-			# 		images.append(image)
-			# 		measurement = float(batch_sample[3])
-			# 		# # Left image
-			# 		# if i == 1 and measurement > 0.2:
-			# 		# 	measurement = measurement + correction
-			# 		# # Right image
-			# 		# if i == 2 and measurement > 0.2:
-			# 		# 	measurement = measurement - correction
-			# 		measurements.append(measurement)
-			# 		print(measurement)
-			# 		# augmented_image = cv2.flip(image,1)
-			# 		# images.append(augmented_image)
-			# 		# augmented_measurement = measurement*-1.0
-			# 		# measurements.append(augmented_measurement)
+			for batch_sample in batch_samples:
+				for i in range (1):
+					source_path = batch_sample[i]
+					filename = source_path.split('/')[-1]
+					current_path = 'data/IMG/' + filename
+					image = cv2.imread(current_path)
+					images.append(image)
+					measurement = float(batch_sample[3])
+					# # Left image
+					# if i == 1 and measurement > 0.2:
+					# 	measurement = measurement + correction
+					# # Right image
+					# if i == 2 and measurement > 0.2:
+					# 	measurement = measurement - correction
+					measurements.append(measurement)
+					print(measurement)
+					# augmented_image = cv2.flip(image,1)
+					# images.append(augmented_image)
+					# augmented_measurement = measurement*-1.0
+					# measurements.append(augmented_measurement)
 			X_train = np.array(images)
 			y_train = np.array(measurements)
 			print(y_train)
