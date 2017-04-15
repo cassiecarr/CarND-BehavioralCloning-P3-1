@@ -41,10 +41,10 @@ def generator(samples, batch_size=32):
 					# 	measurement = measurement - correction
 					measurements.append(measurement)
 					# print(measurement)
-					# augmented_image = cv2.flip(image,1)
-					# images.append(augmented_image)
-					# augmented_measurement = measurement*-1.0
-					# measurements.append(augmented_measurement)
+					augmented_image = cv2.flip(image,1)
+					images.append(augmented_image)
+					augmented_measurement = measurement*-1.0
+					measurements.append(augmented_measurement)
 			X_train = np.array(images)
 			y_train = np.array(measurements)
 			yield sklearn.utils.shuffle(X_train, y_train)
@@ -77,7 +77,9 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
-history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples), validation_data=validation_generator, nb_val_samples=len(validation_samples), nb_epoch=3, verbose=1)
+history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples), /
+	validation_data=validation_generator, nb_val_samples=len(validation_samples), nb_epoch=3, /
+	verbose=1)
 model.save('model.h5')
 import gc; gc.collect()
 
