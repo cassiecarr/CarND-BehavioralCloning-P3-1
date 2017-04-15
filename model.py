@@ -40,7 +40,7 @@ def generator(samples, batch_size=32):
 					# if i == 2 and measurement > 0.2:
 					# 	measurement = measurement - correction
 					measurements.append(measurement)
-					print(measurement)
+					# print(measurement)
 					# augmented_image = cv2.flip(image,1)
 					# images.append(augmented_image)
 					# augmented_measurement = measurement*-1.0
