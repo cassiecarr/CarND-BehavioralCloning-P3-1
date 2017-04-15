@@ -34,10 +34,10 @@ def generator(samples, batch_size=32):
 					images.append(image)
 					measurement = float(batch_sample[3])
 					# Left image
-					if i == 1 and measurement > 0.03:
+					if i == 1 and measurement > 0.1:
 						measurement = measurement + correction
 					# Right image
-					if i == 2 and measurement > 0.03:
+					if i == 2 and measurement > 0.1:
 						measurement = measurement - correction
 					measurements.append(measurement)
 					augmented_image = cv2.flip(image,1)
