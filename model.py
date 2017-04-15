@@ -16,7 +16,7 @@ print(len(train_samples))
 
 import sklearn
 
-def generator(samples, batch_size=32):
+def generator(samples, batch_size=300):
 	num_samples = len(samples)
 	while 1:
 		sklearn.utils.shuffle(samples)
@@ -58,8 +58,8 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
-train_generator = generator(train_samples, batch_size=32)
-validation_generator = generator(validation_samples, batch_size=32)
+train_generator = generator(train_samples, batch_size=300)
+validation_generator = generator(validation_samples, batch_size=300)
 
 # Appy NVIDIA Architecture
 model = Sequential()
@@ -73,7 +73,6 @@ model.add(Convolution2D(64,3,3, activation="relu"))
 model.add(Flatten())
 model.add(Dense(100))
 model.add(Dense(50))
-model.add(Dropout(0.5))
 model.add(Dense(10))
 model.add(Dense(1))
 
