@@ -3,6 +3,7 @@ import os
 import cv2
 import numpy as np
 
+# Read the csv file for image path
 samples = []
 with open('data/driving_log.csv') as csvfile:
 	reader = csv.reader(csvfile)
@@ -10,13 +11,12 @@ with open('data/driving_log.csv') as csvfile:
 	for line in reader:
 		samples.append(line)
 
+# Seperate the data into training and validation sets
 from sklearn.model_selection import train_test_split
 train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
-print(len(train_samples))
-
+# Define a generator to save images and add augmented images to the dataset
 import sklearn
-
 def generator(samples, batch_size=32):
 	num_samples = len(samples)
 	while 1:
@@ -31,16 +31,25 @@ def generator(samples, batch_size=32):
 					source_path = batch_sample[i]
 					filename = source_path.split('/')[-1]
 					current_path = 'data/IMG/' + filename
+					# Original image
 					image = cv2.imread(current_path)
+					# Apply histogram equalization to the image
+					img_yuv = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
+					img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
+					image = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+					# Add image
 					images.append(image)
+					# Steering angle
 					measurement = float(batch_sample[3])
-					# Left image
+					# If left image, adjust steering angle
 					if i == 1 and measurement > 0.2:
 						measurement = measurement + correction
-					# Right image
+					# If right image, adjust steering angle
 					if i == 2 and measurement > 0.2:
 						measurement = measurement - correction
+					# Add steering angle
 					measurements.append(measurement)
+					# Add horizontally flipped image to dataset, adjust steering angle
 					augmented_image = cv2.flip(image,1)
 					images.append(augmented_image)
 					augmented_measurement = measurement*-1.0
@@ -49,6 +58,7 @@ def generator(samples, batch_size=32):
 			y_train = np.array(measurements)
 			yield sklearn.utils.shuffle(X_train, y_train)
 
+# Import needed Keras functions
 from keras.models import Sequential
 from keras.layers import Lambda, Cropping2D
 from keras.layers import Flatten, Dense, Dropout
@@ -59,10 +69,11 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
+# Call generator for training and validation data
 train_generator = generator(train_samples, batch_size=32)
 validation_generator = generator(validation_samples, batch_size=32)
 
-# Appy NVIDIA Architecture
+# Appy NVIDIA Architecture for Keras model
 model = Sequential()
 model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape = (160,320,3)))
 model.add(Cropping2D(cropping=((50,25), (0,0))))
@@ -79,22 +90,25 @@ model.add(Dense(1))
 
 model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
 
-#Checkpoint best model weights
+# Checkpoint best model weights
 from keras.callbacks import ModelCheckpoint
 filepath="weights.best.hdf5"
 checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
 callbacks_list = [checkpoint]
 
+# Generate the model
 history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples)*6, \
-	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=5, \
+	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=3, \
 	verbose=1, callbacks=callbacks_list)
+
+# Save the model
 model.save('model.h5')
 import gc; gc.collect()
 
-### print the keys contained in the history object
+# Print the keys contained in the history object
 print(history_object.history.keys())
 
-### plot the training and validation loss for each epoch
+# Plot the training and validation loss for each epoch
 plt.plot(history_object.history['loss'])
 plt.plot(history_object.history['val_loss'])
 plt.title('model mean squared error loss')
