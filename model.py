@@ -13,6 +13,7 @@ with open('data/driving_log.csv') as csvfile:
 
 # Seperate the data into training and validation sets
 from sklearn.model_selection import train_test_split
+sklearn.utils.shuffle(samples)
 train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
 # Define a generator to save images and add augmented images to the dataset
@@ -50,9 +51,9 @@ def generator(samples, batch_size=32):
 					# Add steering angle
 					measurements.append(measurement)
 					# Add horizontally flipped image to dataset, adjust steering angle
-					augmented_image = cv2.flip(image,1)
+					augmented_image = np.fliplr(image)
 					images.append(augmented_image)
-					augmented_measurement = measurement*-1.0
+					augmented_measurement = -measurement
 					measurements.append(augmented_measurement)
 			X_train = np.array(images)
 			y_train = np.array(measurements)
@@ -75,7 +76,7 @@ validation_generator = generator(validation_samples, batch_size=32)
 
 # Appy NVIDIA Architecture for Keras model
 model = Sequential()
-model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape = (160,320,3)))
+model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape = (160,320,3)))
 model.add(Cropping2D(cropping=((50,25), (0,0))))
 model.add(Convolution2D(24,5,5, subsample=(2,2), activation="relu"))
 model.add(Convolution2D(36,5,5, subsample=(2,2), activation="relu"))
