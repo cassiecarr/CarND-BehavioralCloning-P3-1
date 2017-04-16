@@ -43,15 +43,15 @@ def generator(samples, batch_size=32):
 					# Steering angle
 					measurement = float(batch_sample[3])
 					# If left image, adjust steering angle
-					if i == 1 and measurement > 0.2: # turning right
-						measurement = measurement + correction
-					if i == 1 and measurement < -0.2: # turning left
-						measurement = measurement + correction
-					# If right image, adjust steering angle
-					if i == 2 and measurement > 0.2: # turning right
-						measurement = measurement - correction
-					if i == 2 and measurement < -0.2: # turning left
-						measurement = measurement - correction
+					# if i == 1 and measurement > 0.2: # turning right
+					# 	measurement = measurement + correction
+					# if i == 1 and measurement < -0.2: # turning left
+					# 	measurement = measurement + correction
+					# # If right image, adjust steering angle
+					# if i == 2 and measurement > 0.2: # turning right
+					# 	measurement = measurement - correction
+					# if i == 2 and measurement < -0.2: # turning left
+					# 	measurement = measurement - correction
 					# Add steering angle
 					measurements.append(measurement)
 					# Add horizontally flipped image to dataset, adjust steering angle
