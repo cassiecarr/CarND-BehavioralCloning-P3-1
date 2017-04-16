@@ -28,7 +28,7 @@ def generator(samples, batch_size=32):
 			measurements = []
 			correction = 0.2
 			for batch_sample in batch_samples:
-				for i in range (1):
+				for i in range (3):
 					source_path = batch_sample[i]
 					filename = source_path.split('/')[-1]
 					current_path = 'data/IMG/' + filename
