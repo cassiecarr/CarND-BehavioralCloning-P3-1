@@ -26,7 +26,7 @@ def generator(samples, batch_size=32):
 			batch_samples = samples[offset:offset+batch_size]
 			images = []
 			measurements = []
-			correction = 0.2
+			correction = 0.25
 			for batch_sample in batch_samples:
 				for i in range (3):
 					source_path = batch_sample[i]
