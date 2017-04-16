@@ -77,7 +77,7 @@ validation_generator = generator(validation_samples, batch_size=32)
 # Appy NVIDIA Architecture for Keras model
 model = Sequential()
 model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape = (160,320,3)))
-model.add(Cropping2D(cropping=((50,25), (0,0))))
+model.add(Cropping2D(cropping=((60,25), (0,0))))
 # model.add(Convolution2D(6,5,5, activation="relu"))
 # model.add(MaxPooling2D())
 # model.add(Convolution2D(6,5,5, activation="relu"))
@@ -105,16 +105,16 @@ model.add(Dense(1))
 
 model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
 
-# # Checkpoint best model weights
-# from keras.callbacks import ModelCheckpoint
-# filepath="weights.best.hdf5"
-# checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
-# callbacks_list = [checkpoint]
+# Checkpoint best model weights
+from keras.callbacks import ModelCheckpoint
+filepath = "weights.best.hdf5"
+checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
+callbacks_list = [checkpoint]
 
 # Generate the model
-history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples)*2, \
-	validation_data=validation_generator, nb_val_samples=len(validation_samples)*2, nb_epoch=5, \
-	verbose=1)
+history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples)*6, \
+	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=5, \
+	verbose=1, callbacks = callbacks_list)
 
 # Save the model
 model.save('model.h5')
