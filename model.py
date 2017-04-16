@@ -12,12 +12,12 @@ with open('data/driving_log.csv') as csvfile:
 		samples.append(line)
 
 # Seperate the data into training and validation sets
+import sklearn
 from sklearn.model_selection import train_test_split
 sklearn.utils.shuffle(samples)
 train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
 # Define a generator to save images and add augmented images to the dataset
-import sklearn
 def generator(samples, batch_size=32):
 	num_samples = len(samples)
 	while 1:
@@ -102,7 +102,7 @@ model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
 
 # Generate the model
 history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples)*6, \
-	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=3, \
+	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=2, \
 	verbose=1)
 
 # Save the model
