@@ -44,9 +44,13 @@ def generator(samples, batch_size=32):
 					measurement = float(batch_sample[3])
 					# If left image, adjust steering angle
 					if i == 1 and measurement > 0.2:
+						measurement = measurement - correction
+					if i == 1 and measurement < -0.2:
 						measurement = measurement + correction
 					# If right image, adjust steering angle
 					if i == 2 and measurement > 0.2:
+						measurement = measurement + correction
+					if i == 2 and measurement < -0.2:
 						measurement = measurement - correction
 					# Add steering angle
 					measurements.append(measurement)
@@ -81,8 +85,8 @@ model.add(Cropping2D(cropping=((50,25), (0,0))))
 model.add(Convolution2D(24,5,5, subsample=(2,2), activation="relu"))
 model.add(Convolution2D(36,5,5, subsample=(2,2), activation="relu"))
 model.add(Convolution2D(48,5,5, subsample=(2,2), activation="relu"))
-model.add(Convolution2D(64,3,3, subsample=(2,2), activation="relu"))
-model.add(Convolution2D(64,3,3, subsample=(2,2), activation="relu"))
+model.add(Convolution2D(64,3,3, activation="relu"))
+model.add(Convolution2D(64,3,3, activation="relu"))
 model.add(Flatten())
 model.add(Dense(100))
 model.add(Dense(50))
