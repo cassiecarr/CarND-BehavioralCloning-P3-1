@@ -94,7 +94,7 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 # Load weights
-# model.load_weights("weights.best.hdf5")
+model.load_weights("weights.best.hdf5")
 
 model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
 
