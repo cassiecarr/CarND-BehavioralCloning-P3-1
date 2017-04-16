@@ -26,7 +26,7 @@ def generator(samples, batch_size=32):
 			batch_samples = samples[offset:offset+batch_size]
 			images = []
 			measurements = []
-			correction = 0.25
+			correction = 0.2
 			for batch_sample in batch_samples:
 				for i in range (3):
 					source_path = batch_sample[i]
@@ -43,14 +43,14 @@ def generator(samples, batch_size=32):
 					# Steering angle
 					measurement = float(batch_sample[3])
 					# If left image, adjust steering angle
-					if i == 1 and measurement > 0.1: # turning right
+					if i == 1 and measurement > 0.2: # turning right
 						measurement = measurement + correction
-					if i == 1 and measurement < -0.1: # turning left
+					if i == 1 and measurement < -0.2: # turning left
 						measurement = measurement + correction
 					# If right image, adjust steering angle
-					if i == 2 and measurement > 0.1: # turning right
+					if i == 2 and measurement > 0.2: # turning right
 						measurement = measurement - correction
-					if i == 2 and measurement < -0.1: # turning left
+					if i == 2 and measurement < -0.2: # turning left
 						measurement = measurement - correction
 					# Add steering angle
 					measurements.append(measurement)
@@ -94,7 +94,7 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 # Load weights
-model.load_weights("weights.best.hdf5")
+# model.load_weights("weights.best.hdf5")
 
 model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
 
