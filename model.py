@@ -78,9 +78,16 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
+
+#Checkpoint best model weights
+from keras.callbacks import ModelCheckpoint
+filepath="weights.best.hdf5"
+checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
+callbacks_list = [checkpoint]
+
 history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples)*6, \
-	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=2, \
-	verbose=1)
+	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=5, \
+	verbose=1, callbacks=callbacks_list)
 model.save('model.h5')
 import gc; gc.collect()
 
