@@ -33,10 +33,10 @@ def generator(samples, batch_size=32):
 					current_path = 'data/IMG/' + filename
 					# Original image
 					image = cv2.imread(current_path)
-					# Apply histogram equalization to the image
-					img_yuv = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
-					img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
-					image = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+					# # Apply histogram equalization to the image
+					# img_yuv = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
+					# img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
+					# image = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
 					# Add image
 					images.append(image)
 					# Steering angle
