@@ -27,7 +27,17 @@ def generator(samples, batch_size=32):
 			images = []
 			measurements = []
 			correction = 0.2
+			count_zero_measurement = 0
 			for batch_sample in batch_samples:
+				# Remove every 4th zero
+				if float(batch_sample[3]) > 0.001:
+					count_zero_measurement += 1
+				else:
+					count_zero_measurement = 0
+				if count_zero_measurement > 3:
+					continue
+				else:
+					count_zero_measurement = 0
 				for i in range (3):
 					source_path = batch_sample[i]
 					filename = source_path.split('/')[-1]
@@ -35,9 +45,8 @@ def generator(samples, batch_size=32):
 					# Original image
 					image = cv2.imread(current_path)
 					# # Apply histogram equalization to the image
-					# img_yuv = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
-					# img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
-					# image = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+					image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+					#image.show()
 					# Add image
 					images.append(image)
 					# Steering angle
@@ -101,20 +110,20 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 # Load weights
-model.load_weights("weights.best.hdf5")
+# model.load_weights("weights.best.hdf5")
 
 model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
 
-# # Checkpoint best model weights
-# from keras.callbacks import ModelCheckpoint
-# filepath = "weights.best.hdf5"
-# checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
-# callbacks_list = [checkpoint]
+# Checkpoint best model weights
+from keras.callbacks import ModelCheckpoint
+filepath = "weights.best.hdf5"
+checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
+callbacks_list = [checkpoint]
 
 # Generate the model
 history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples)*6, \
-	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=2, \
-	verbose=1)
+	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=5, \
+	verbose=1, callbacks=callbacks_list)
 
 # Save the model
 model.save('model.h5')
