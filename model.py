@@ -22,6 +22,7 @@ def generator(samples, batch_size=32):
 	num_samples = len(samples)
 	while 1:
 		sklearn.utils.shuffle(samples)
+		removed = 0
 		for offset in range(0, num_samples, batch_size):
 			batch_samples = samples[offset:offset+batch_size]
 			images = []
@@ -35,6 +36,7 @@ def generator(samples, batch_size=32):
 				else:
 					count_zero_measurement = 0
 				if count_zero_measurement > 2:
+					removed += 1
 					continue
 				else:
 					count_zero_measurement = 0
@@ -67,6 +69,7 @@ def generator(samples, batch_size=32):
 					measurements.append(augmented_measurement)
 			X_train = np.array(images)
 			y_train = np.array(measurements)
+			print(removed)
 			yield sklearn.utils.shuffle(X_train, y_train)
 
 # Import needed Keras functions
