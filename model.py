@@ -75,6 +75,7 @@ from keras.layers import Flatten, Dense, Dropout
 from keras.layers.convolutional import Convolution2D
 from keras.layers.pooling import MaxPooling2D
 from keras.models import Model
+from keras import optimizers
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
@@ -94,6 +95,7 @@ model.add(Cropping2D(cropping=((60,25), (0,0))))
 model.add(Convolution2D(24,5,5, subsample=(2,2), activation="relu"))
 model.add(Dropout(0.5))
 model.add(Convolution2D(36,5,5, subsample=(2,2), activation="relu"))
+model.add(Dropout(0.5))
 model.add(Convolution2D(48,5,5, subsample=(2,2), activation="relu"))
 model.add(Convolution2D(64,3,3, activation="relu"))
 model.add(Convolution2D(64,3,3, activation="relu"))
@@ -107,20 +109,21 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 # Load weights
-model.load_weights("weights.best.hdf5")
+# model.load_weights("weights.best.hdf5")
 
-model.compile(loss = 'mse', optimizer = 'adam', metrics=['mse', 'accuracy'])
+adam = optimizers.Adam(lr=0.0001)
+model.compile(loss = 'mse', optimizer = adam, metrics=['mse', 'accuracy'])
 
-# # Checkpoint best model weights
-# from keras.callbacks import ModelCheckpoint
-# filepath = "weights.best.hdf5"
-# checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
-# callbacks_list = [checkpoint]
+# Checkpoint best model weights
+from keras.callbacks import ModelCheckpoint
+filepath = "weights.best.hdf5"
+checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
+callbacks_list = [checkpoint]
 
 # Generate the model
 history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples)*6, \
-	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=3, \
-	verbose=1)
+	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=6, \
+	verbose=1, callbacks=callbacks_list)
 
 # Save the model
 model.save('model.h5')
