@@ -30,7 +30,7 @@ def generator(samples, batch_size=32):
 			count_zero_measurement = 0
 			for batch_sample in batch_samples:
 				# Remove every 4th zero
-				if float(batch_sample[3]) > 0.001:
+				if float(abs(batch_sample[3])) > 0.07:
 					count_zero_measurement += 1
 				else:
 					count_zero_measurement = 0
