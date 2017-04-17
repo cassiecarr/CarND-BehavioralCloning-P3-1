@@ -34,7 +34,7 @@ def generator(samples, batch_size=32):
 					count_zero_measurement += 1
 				else:
 					count_zero_measurement = 0
-				if count_zero_measurement > 3:
+				if count_zero_measurement > 2:
 					continue
 				else:
 					count_zero_measurement = 0
