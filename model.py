@@ -44,9 +44,10 @@ def generator(samples, batch_size=32):
 					current_path = 'data/IMG/' + filename
 					# Original image
 					image = cv2.imread(current_path)
-					# # Apply histogram equalization to the image
+					# # Apply resize, crop, and apply histogram equalization to the image
+					image = cv2.resize(image, (235,118))
+					image = image[34:100, 17:217]
 					image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-					#image.show()
 					# Add image
 					images.append(image)
 					# Steering angle
@@ -86,8 +87,8 @@ validation_generator = generator(validation_samples, batch_size=32)
 
 # Appy NVIDIA Architecture for Keras model
 model = Sequential()
-model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape = (160,320,3)))
-model.add(Cropping2D(cropping=((60,25), (0,0))))
+model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape = (66,200,3)))
+# model.add(Cropping2D(cropping=((60,25), (0,0))))
 # model.add(Convolution2D(6,5,5, activation="relu"))
 # model.add(MaxPooling2D())
 # model.add(Convolution2D(6,5,5, activation="relu"))
@@ -112,16 +113,16 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 # Load weights
-model.load_weights("weights.best.hdf5")
+# model.load_weights("weights.best.hdf5")
 
 adam = optimizers.Adam(lr=0.00001)
 model.compile(loss = 'mse', optimizer = adam, metrics=['mse', 'accuracy'])
 
 # Checkpoint best model weights
-# from keras.callbacks import ModelCheckpoint
-# filepath = "weights.best.hdf5"
-# checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
-# callbacks_list = [checkpoint]
+from keras.callbacks import ModelCheckpoint
+filepath = "weights.best.hdf5"
+checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
+callbacks_list = [checkpoint]
 
 # Generate the model
 history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples)*6, \
