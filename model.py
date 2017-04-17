@@ -68,7 +68,7 @@ def generator(samples, batch_size=32):
 					measurements.append(augmented_measurement)
 			X_train = np.array(images)
 			y_train = np.array(measurements)
-			print(removed)
+			# print(removed)
 			yield sklearn.utils.shuffle(X_train, y_train)
 
 # Import needed Keras functions
