@@ -66,6 +66,11 @@ def generator(samples, batch_size=32):
 					images.append(augmented_image)
 					augmented_measurement = -measurement
 					measurements.append(augmented_measurement)
+					if (abs(measurement)) > 0.4:
+						images.append(image)
+						measurements.append(measurement)
+						images.append(augmented_image)
+						measurements.append(augmented_measurement)
 			X_train = np.array(images)
 			y_train = np.array(measurements)
 			# print(removed)
