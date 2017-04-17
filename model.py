@@ -11,6 +11,8 @@ with open('data/driving_log.csv') as csvfile:
 	for line in reader:
 		samples.append(line)
 
+measurement_data = samples[3]
+
 # Seperate the data into training and validation sets
 import sklearn
 from sklearn.model_selection import train_test_split
@@ -142,6 +144,10 @@ import gc; gc.collect()
 
 # Print the keys contained in the history object
 print(history_object.history.keys())
+
+# Plot measurements
+plt.hist(measurement_data)
+plt.savefig('measurement histogram')
 
 # Plot the training and validation loss for each epoch
 plt.plot(history_object.history['loss'])
