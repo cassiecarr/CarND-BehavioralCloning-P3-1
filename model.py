@@ -22,13 +22,13 @@ def generator(samples, batch_size=32):
 	num_samples = len(samples)
 	while 1:
 		sklearn.utils.shuffle(samples)
-		removed = 0
 		for offset in range(0, num_samples, batch_size):
 			batch_samples = samples[offset:offset+batch_size]
 			images = []
 			measurements = []
 			correction = 0.2
 			count_zero_measurement = 0
+			removed = 0
 			for batch_sample in batch_samples:
 				# Remove every 4th zero
 				if abs(float(batch_sample[3])) < 0.03:
@@ -37,9 +37,8 @@ def generator(samples, batch_size=32):
 					count_zero_measurement = 0
 				if count_zero_measurement > 2:
 					removed += 1
-					continue
-				else:
 					count_zero_measurement = 0
+					continue
 				for i in range (3):
 					source_path = batch_sample[i]
 					filename = source_path.split('/')[-1]
