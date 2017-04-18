@@ -69,7 +69,7 @@ model.add(Dense(1))
 model.load_weights("weights.best.hdf5")
 
 adam = optimizers.Adam(lr=0.00001)
-model.compile(loss = 'mse', optimizer = adam, metrics=['mse', 'accuracy'])
+model.compile(loss = 'mse', optimizer = adam, metrics=['mse'])
 
 # Checkpoint best model weights
 # from keras.callbacks import ModelCheckpoint
@@ -79,7 +79,7 @@ model.compile(loss = 'mse', optimizer = adam, metrics=['mse', 'accuracy'])
 
 # Generate the model
 history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples)*6, \
-	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=3, \
+	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=5, \
 	verbose=1)
 
 # Save the model
