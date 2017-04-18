@@ -89,6 +89,10 @@ import gc; gc.collect()
 # Print the keys contained in the history object
 print(history_object.history.keys())
 
+import matplotlib
+matplotlib.use('agg')
+import matplotlib.pyplot as plt
+
 # Plot the training and validation loss for each epoch
 plt.plot(history_object.history['loss'])
 plt.plot(history_object.history['val_loss'])
