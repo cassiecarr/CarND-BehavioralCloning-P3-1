@@ -31,4 +31,7 @@ import matplotlib.pyplot as plt
 # Plot measurements
 plt.hist(measurement_data)
 plt.xticks((np.arange(-1.0, 1.0, 0.2)))
+plt.title('Steering Angle Histogram')
+plt.xlabel('Steering Angle')
+plt.ylabel('Occurrences')
 plt.savefig('measurement histogram')
