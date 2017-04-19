@@ -1,7 +1,5 @@
 # **Behavioral Cloning** 
-
 ## Project Writeup
-
 ---
 
 **Project Goals:**
@@ -88,6 +86,7 @@ After this, I looked at histograms of the dataset and found the data was highly 
 The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle went outside the lines. In order to improve this, more training data was collected in these areas. 
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KLlb4TpVvCY" frameborder="0" allowfullscreen></iframe>
 
 #### 2. Final Model Architecture
 
