@@ -30,7 +30,7 @@ My project includes the following files:
 * [model.py](model.py) containing the script to create and train the model
 * [utils.py](utils.py) containing the preprocessing steps for the dataset
 * [drive.py](drive.py) for driving the car in autonomous mode
-* [model.h5](model.h) containing a trained convolution neural network 
+* [model.h5](model.h5) containing a trained convolution neural network 
 * writeup.md (this file) explains the results
 
 #### 2. Submission includes functional code
