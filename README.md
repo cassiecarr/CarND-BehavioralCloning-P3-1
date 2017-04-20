@@ -18,11 +18,14 @@ The goals / steps of this project are the following:
 ### Files and Dependancies
 
 My project includes the following files:
-* [model.py](model.py) containing the script to create and train the model
-* [utils.py](utils.py) containing the preprocessing steps for the dataset
-* [drive.py](drive.py) for driving the car in autonomous mode
-* [model.h5](model.h5) containing a trained convolution neural network 
+* [model.py](model.py) contains the script to create and train the model
+* [utils.py](utils.py) contains the preprocessing steps for the dataset
+* [drive.py](drive.py) used for driving the car in autonomous mode
+* [model.h5](model.h5) contains a trained convolution neural network 
 * [writeup.md](writeup.md) explains the results
+* [video.py](video.py) takes in the recording images from drive.py and combines them into a video
+* [run1.mp4](run1.mp4) is the video output of video.py, showing the simulator running in autonomous mode from the trained model
+* [histogram.py](histogram.py) outputs a histogram of the training / validation set to better understand data representation
 
 This lab requires:
 
