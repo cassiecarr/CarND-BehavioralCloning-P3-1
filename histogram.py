@@ -18,15 +18,12 @@ with open('data/driving_log.csv') as csvfile:
 	for line in reader:
 		samples.append(line)
 
-#print (np.array(samples)[:,3])
-
+# Get measurement data
 measurement_data = getMeasurements(samples)
 
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
-
-#print (np.array(measurement_data))
 
 # Plot measurements
 plt.hist(measurement_data)
