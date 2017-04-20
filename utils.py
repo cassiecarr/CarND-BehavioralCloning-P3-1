@@ -11,7 +11,7 @@ def preprocess(samples):
 
 	for batch_sample in samples:
 		# Remove every other zero
-		if abs(float(batch_sample[3])) < 0.1:
+		if abs(float(batch_sample[3])) < 0.2:
 			count_zero_measurement += 1
 		else:
 			count_zero_measurement = 0
@@ -62,6 +62,11 @@ def preprocess(samples):
 
 			# Add additional images when steering angle is greater than 0.4
 			if (abs(measurement)) > 0.4:
+				images.append(image)
+				measurements.append(measurement)
+				images.append(augmented_image)
+				measurements.append(augmented_measurement)
+			if (abs(measurement)) > 0.5:
 				images.append(image)
 				measurements.append(measurement)
 				images.append(augmented_image)
