@@ -3,9 +3,9 @@
 
 **Project Goals:**
 * Use the simulator to collect data of good driving behavior
-* Build, a convolution neural network in Keras that predicts steering angles from images
+* Build a convolution neural network in Keras that predicts steering angles from images
 * Train and validate the model with a training and validation set
-* Test that the model successfully drives around track one without leaving the road
+* Test that the model successfully drives around track without leaving the road
 * Summarize the results with a written report
 
 
@@ -57,7 +57,7 @@ The data is also normalized in the model using a Keras lambda layer (code line 5
 
 The model contains dropout layers in order to reduce overfitting (model.py line 53). 
 
-The model was trained and validated on different data sets (code line 16-19), training and validation losses were compared to ensure that the model was not overfitting. The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets (code line 16-19). Training and validation losses were compared to ensure that the model was not overfitting. The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
@@ -65,7 +65,7 @@ The model used an adam optimizer, but a learning rate was manually selected at a
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road, driving along smooth curves, and driving the track in the other direction. 
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road, driving along smooth curves, and driving the track in the opposite direction. 
 
 For details about how I created the training data, see the next section. 
 
@@ -79,11 +79,11 @@ In order to gauge how well the model was working, I split my image and steering 
 
 I also noticed that on the second epoch, the model stopped improving. In order to ensure no overfitting, dropout layers were added after each of the (5) convolutional 2D layers. In addition, the learning rate was manually set to a reduced rate in order to better fine tune the stopping point. Unfortunatly, after running this model in the simulator, the car still went off the track at the first curve. 
 
-Then I added additional pre-processing, including resizing the image to the NVIDIA model input size of 66x200, changing the colorspace to HSV, and cropping the top and bottom portions of the image that included the hood of the car and the sky and trees. 
+Then I added additional pre-processing, including resizing the image to the NVIDIA model input size of 66x200, changing the colorspace to HSV, and cropping the top and bottom portions of the image to remove irrelevant data. 
 
-After this, I looked at histograms of the dataset and found the data was highly skewed to low steering angles. Code was added to the pre-processing to more evenly represent the data. In addition, augmented images were added for each image flipped horizontally. 
+In addition to pre-processing, I created a histogram of the dataset and found the data was highly skewed to low steering angles. Logic was added to more evenly distribute the steering angles. Augmented images were added by flipping each image horizontally to ensure equal distribution of right and left turns.  
 
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle went outside the lines. In order to improve this, more training data was collected in these areas. 
+After implementing the above, the simulator was ran to see how well the car was driving around track one. There were a few spots where the vehicle went outside the lines. In order to improve this, more training data was collected in these areas. 
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road. [See my video](https://www.youtube.com/embed/KLlb4TpVvCY)!
 
