@@ -27,7 +27,7 @@ My project includes the following files:
 * [run1.mp4](run1.mp4) is the video output of video.py, showing the simulator running in autonomous mode from the trained model
 * [histogram.py](histogram.py) outputs a histogram of the training / validation set to better understand data representation
 
-This lab requires:
+Dependancies:
 
 * [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit)
 
