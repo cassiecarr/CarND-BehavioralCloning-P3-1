@@ -56,7 +56,6 @@ model.add(Dropout(0.2))
 model.add(Convolution2D(48,5,5, subsample=(2,2), activation="relu"))
 model.add(Dropout(0.2))
 model.add(Convolution2D(64,3,3, activation="relu"))
-model.add(Dropout(0.2))
 model.add(Convolution2D(64,3,3, activation="relu"))
 model.add(Flatten())
 model.add(Dense(100))
@@ -78,7 +77,7 @@ model.compile(loss = 'mse', optimizer = adam, metrics=['mse'])
 
 # Generate the model
 history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples)*6, \
-	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=5, \
+	validation_data=validation_generator, nb_val_samples=len(validation_samples)*6, nb_epoch=3, \
 	verbose=1)
 
 # Save the model
