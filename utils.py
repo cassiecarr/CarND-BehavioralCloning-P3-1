@@ -11,7 +11,7 @@ def preprocess(samples):
 
 	for batch_sample in samples:
 		# Remove every other zero
-		if abs(float(batch_sample[3])) < 0.2:
+		if abs(float(batch_sample[3])) < 0.1:
 			count_zero_measurement += 1
 		else:
 			count_zero_measurement = 0
