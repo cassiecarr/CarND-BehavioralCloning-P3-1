@@ -34,7 +34,7 @@ My project includes the following files:
 * writeup.md (this file) explains the results
 
 #### 2. Submission includes functional code
-Using the Udacity provided [simulator](https://d17h27t6h515a5.cloudfront.net/topher/2017/February/58ae4594_mac-sim.app/mac-sim.app.zip) and my [drive.py](drive.py) file, the car can be driven autonomously around the track by executing 
+Using the Udacity provided [simulator](https://d17h27t6h515a5.cloudfront.net/topher/2017/February/58ae4594_mac-sim.app/mac-sim.app.zip) and [drive.py](drive.py) file, the car can be driven autonomously around the track by executing:
 ```sh
 python drive.py model.h5
 ```
@@ -57,7 +57,7 @@ The data is also normalized in the model using a Keras lambda layer (code line 5
 
 The model contains dropout layers in order to reduce overfitting (model.py line 53). 
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets (code line 16-19), training and validation losses were compared to ensure that the model was not overfitting. The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
@@ -81,7 +81,7 @@ I also noticed that on the second epoch, the model stopped improving. In order t
 
 Then I added additional pre-processing, including resizing the image to the NVIDIA model input size of 66x200, changing the colorspace to HSV, and cropping the top and bottom portions of the image that included the hood of the car and the sky and trees. 
 
-After this, I looked at histograms of the dataset and found the data was highly skewed to low steering angles. Code was added to the pre-processing to more evenly represent the data. In addition augmented images were added for each image flipped horizontally. 
+After this, I looked at histograms of the dataset and found the data was highly skewed to low steering angles. Code was added to the pre-processing to more evenly represent the data. In addition, augmented images were added for each image flipped horizontally. 
 
 The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle went outside the lines. In order to improve this, more training data was collected in these areas. 
 
@@ -112,7 +112,7 @@ To augment the data sat, I also flipped images horizontally to even out the left
 ![alt text][image4]
 ![alt text][image5]
 
-After the collection process, I had X number of data points. I then preprocessed this data by:
+After the collection process, I preprocessed this data by:
 * Changing the colorspace to HSV
 * Cropping the image of the hood of the car at the bottom and sky / trees at the top
 * Resizing the image to 66x200 for the NVIDIA CNN Network Architecture
@@ -124,5 +124,5 @@ In addition, to develop a more represented datset, I removed every other image t
 
 I finally randomly shuffled the data set into training and validation sets. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. Originally, the atom optimizer was used, where the learning rate was set automatically. However, after 1 epoch, the model would stop improving. In order to reduce overfitting and improve the stopping point, a smaller learning rate was selected. With this learning rate, 5 epochs were used. 
+I used the training data for training the model. The validation set helped determine if the model was over or under fitting. Originally, the atom optimizer was used, where the learning rate was set automatically. However, after 1 epoch, the model would stop improving. In order to reduce overfitting and improve the stopping point, a smaller learning rate was selected. With this learning rate, 5 epochs were used. 
 
