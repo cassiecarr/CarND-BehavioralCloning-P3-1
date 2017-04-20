@@ -76,4 +76,5 @@ def preprocess(samples):
 				measurements.append(measurement)
 				images.append(augmented_image)
 				measurements.append(augmented_measurement)
+
 	return measurements, images
