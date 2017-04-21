@@ -16,7 +16,8 @@ def preprocess(samples):
 		else:
 			count_zero_measurement = 0
 		if count_zero_measurement > 1:
-			count_zero_measurement = 0
+			if count_zero_measurement > 2:
+				count_zero_measurement = 0
 			continue
 
 		# Apply preprocessing to left, right and center images
