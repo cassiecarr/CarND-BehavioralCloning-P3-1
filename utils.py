@@ -68,11 +68,11 @@ def preprocess(samples):
 					measurements.append(measurement)
 					images.append(augmented_image)
 					measurements.append(augmented_measurement)
-				# if (abs(measurement)) > 0.55:
-				# 	images.append(image)
-				# 	measurements.append(measurement)
-				# 	images.append(augmented_image)
-				# 	measurements.append(augmented_measurement)
+				if (abs(measurement)) > 0.55:
+					images.append(image)
+					measurements.append(measurement)
+					images.append(augmented_image)
+					measurements.append(augmented_measurement)	
 				if (abs(measurement)) > 0.7:
 					images.append(image)
 					measurements.append(measurement)
