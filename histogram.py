@@ -8,8 +8,6 @@ def getMeasurements(samples):
 	measurements, images = utils.preprocess(samples)
 	return measurements
 
-
-
 # Read the csv file for image path
 samples = []
 with open('data/driving_log.csv') as csvfile:
