@@ -68,7 +68,7 @@ model.add(Dense(1))
 # Load weights
 # model.load_weights("weights.best.hdf5")
 
-adam = optimizers.Adam(lr=0.000001)
+adam = optimizers.Adam(lr=0.0000015)
 model.compile(loss = 'mse', optimizer = adam, metrics=['mse'])
 
 # Checkpoint best model weights
