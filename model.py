@@ -61,11 +61,11 @@ validation_generator = generator(validation_samples, batch_size=32)
 model = Sequential()
 model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape = (66,200,3)))
 model.add(Convolution2D(24,5,5, subsample=(2,2), activation="relu"))
-model.add(Dropout(0.5))
+model.add(Dropout(0.2))
 model.add(Convolution2D(36,5,5, subsample=(2,2), activation="relu"))
-model.add(Dropout(0.5))
+model.add(Dropout(0.2))
 model.add(Convolution2D(48,5,5, subsample=(2,2), activation="relu"))
-model.add(Dropout(0.5))
+model.add(Dropout(0.2))
 model.add(Convolution2D(64,3,3, activation="relu"))
 model.add(Dropout(0.2))
 model.add(Convolution2D(64,3,3, activation="relu"))
@@ -90,7 +90,7 @@ model.compile(loss = 'mse', optimizer = adam, metrics=['mse'])
 
 # Generate the model
 history_object = model.fit_generator(train_generator, samples_per_epoch=train_size, \
-	validation_data=validation_generator, nb_val_samples=validation_size, nb_epoch=3, \
+	validation_data=validation_generator, nb_val_samples=validation_size, nb_epoch=15, \
 	verbose=1)
 
 # Save the model
