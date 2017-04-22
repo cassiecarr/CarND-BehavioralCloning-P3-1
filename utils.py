@@ -16,8 +16,7 @@ def preprocess(samples):
 		else:
 			count_zero_measurement = 0
 		if count_zero_measurement > 1:
-			if count_zero_measurement > 2:
-				count_zero_measurement = 0
+			count_zero_measurement = 0
 			continue
 
 		# Apply preprocessing to left, right and center images
@@ -62,7 +61,7 @@ def preprocess(samples):
 			measurements.append(augmented_measurement)
 
 			# Add additional images when steering angle is greater than 0.4
-			for i in range(5):
+			for i in range(4):
 				if (abs(measurement)) > 0.4:
 					images.append(image)
 					measurements.append(measurement)
