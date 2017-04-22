@@ -79,7 +79,7 @@ model.add(Dense(1))
 # Load weights
 # model.load_weights("weights.best.hdf5")
 
-adam = optimizers.Adam(lr=0.000001)
+adam = optimizers.Adam(lr=0.00001)
 model.compile(loss = 'mse', optimizer = adam, metrics=['mse'])
 
 # Checkpoint best model weights
@@ -90,7 +90,7 @@ model.compile(loss = 'mse', optimizer = adam, metrics=['mse'])
 
 # Generate the model
 history_object = model.fit_generator(train_generator, samples_per_epoch=train_size, \
-	validation_data=validation_generator, nb_val_samples=validation_size, nb_epoch=10, \
+	validation_data=validation_generator, nb_val_samples=validation_size, nb_epoch=3, \
 	verbose=1)
 
 # Save the model
