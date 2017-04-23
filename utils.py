@@ -64,7 +64,7 @@ def preprocess(samples):
 			measurements.append(augmented_measurement)
 
 			# Add additional images when steering angle is greater than 0.4
-			for i in range(3):
+			for i in range(2):
 				if (abs(measurement)) > 0.4:
 					images.append(image)
 					measurements.append(measurement)
