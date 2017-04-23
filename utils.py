@@ -35,7 +35,8 @@ def preprocess(samples):
 			image = image[34:100, 17:217]
 
 			# Convert to HSV color space
-			image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+			# image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+			image[:,:,0] = 0
 
 			# Add image
 			images.append(image)
