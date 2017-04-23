@@ -19,6 +19,7 @@
 [image6]: ./examples/Histogram_OriginalDataset.png "Original Dataset"
 [image7]: ./examples/Histogram_ModifiedDataset.png "Modified Dataset"
 [image8]: ./examples/cnn-architecture.png "NVIDIA Architecture" 
+[image9]: ./examples/processed1.png "Processed Image" 
 
 
 ---
@@ -116,6 +117,9 @@ After the collection process, I preprocessed this data by:
 * Changing the colorspace to HSV
 * Cropping the image of the hood of the car at the bottom and sky / trees at the top
 * Resizing the image to 66x200 for the NVIDIA CNN Network Architecture
+
+See processed image below:
+![alt text][image9]
 
 In addition, to develop a more represented datset, I removed every other image that had a steering angle lower than 0.1. I also added copies of the data for images with higher steering angles. See the histograms below to see how the dataset was more representative before and after applying this technique:
 
