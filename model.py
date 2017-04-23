@@ -81,7 +81,7 @@ model.compile(loss = 'mse', optimizer = adam, metrics=['mse'])
 
 # Generate the model
 history_object = model.fit_generator(train_generator, samples_per_epoch=train_size, \
-	validation_data=validation_generator, nb_val_samples=validation_size, nb_epoch=5, \
+	validation_data=validation_generator, nb_val_samples=validation_size, nb_epoch=3, \
 	verbose=1)
 
 # Save the model
