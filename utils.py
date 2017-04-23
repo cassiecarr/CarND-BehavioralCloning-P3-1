@@ -33,7 +33,9 @@ def preprocess(samples):
 			image = cv2.resize(image, (235,118))
 
 			# Apply crop
-			image = image[34:100, 17:217]
+			# image = image[34:100, 17:217]
+			image = image[49:100, 17:217]
+			image = cv2.resize(image, (200,66))
 
 			# Convert to HSV color space
 			image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
@@ -62,7 +64,7 @@ def preprocess(samples):
 			measurements.append(augmented_measurement)
 
 			# Add additional images when steering angle is greater than 0.4
-			for i in range(4):
+			for i in range(3):
 				if (abs(measurement)) > 0.4:
 					images.append(image)
 					measurements.append(measurement)
