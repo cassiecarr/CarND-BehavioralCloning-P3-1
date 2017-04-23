@@ -76,7 +76,7 @@ model.add(Dense(50))
 model.add(Dense(10))
 model.add(Dense(1))
 
-Load weights
+# Load weights
 model.load_weights("weights.best.hdf5")
 
 adam = optimizers.Adam(lr=0.00001)
