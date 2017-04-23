@@ -119,6 +119,7 @@ After the collection process, I preprocessed this data by:
 * Resizing the image to 66x200 for the NVIDIA CNN Network Architecture
 
 See processed image below:
+
 ![alt text][image9]
 
 In addition, to develop a more represented datset, I removed every other image that had a steering angle lower than 0.1. I also added copies of the data for images with higher steering angles. See the histograms below to see how the dataset was more representative before and after applying this technique:
